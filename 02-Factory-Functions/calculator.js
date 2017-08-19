@@ -1,13 +1,19 @@
 function createCalculator(){
 
 	var total = 0;
-	var value = function(){
-		return total;
-	}
-	function add(num){
-		return value += num;
-	}
-	function substract(num){
-		return value -=num;
+
+	return {
+		value : function(){
+			return total;
+		},
+		add : function(num){
+			total += num;
+		},
+		subtract : function (num){
+			total -= num;
+		},
+		clear : function(){
+			total = 0;
+		}
 	}
 }
