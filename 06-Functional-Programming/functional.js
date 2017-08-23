@@ -61,7 +61,6 @@ function every(arr,func){
 
 function any(arr,func){
 	var total = 0;
-	var sum = 0
 	if(arr.length === 0) return false;
 	for (var each in arr){
 		total += reduce(arr,arr[each],func);
