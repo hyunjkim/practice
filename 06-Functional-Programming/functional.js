@@ -1,27 +1,24 @@
 function doubler(num){
-	return num * 2 ;
+	return num * 2;
 }
 
-function map(arr,func){
-	var index = 0
-	for(var each in arr){
-		arr[index] = func(arr[each]);
-		index++;
-	}
-	return arr;
+function map(arr, func){
+	var newArr = [];
+	for(var each in arr) newArr.push(func(arr[each]));
+	return newArr;
 }
 
 function filter(arr,func){
-	var mArr = [];
+	let newArr = [];
 	for(var each in arr){
-		if(func(arr[each])) mArr.push(arr[each]);
-	}
-	return mArr;
+    	if(func(arr[each])) newArr.push(arr[each])
+    }
+	return newArr;
 }
 
-function contains(arr,num){
+function contains(arr,val){
 	for(var each in arr){
-		if(num === arr[each]) return true;
+		if(arr[each]===val) return true;
 	}
 	return false;
 }
@@ -30,40 +27,36 @@ function countWords(str){
 	return str.split(" ").length;
 }
 
-function reduce(arr,num,func){
-	var total = num;
+
+function reduce(arr,start,func){
 	for(var each in arr){
-		total = func(total,arr[each]);
+		start = func(arr[each],start)
 	}
-	return total;
+	return start;
 }
 
-function countWordsInReduce(num,words){
-	return num+words.split(" ").length;
-}
-
+function countWordsInReduce(arr,num){
+	return num+countWords(arr);
+} 
 
 function sum(arr){
-	var myArr = 0;
+	var mArr = 0;
 	for(var each in arr){
-		myArr += reduce(arr[each],arr[each],sum);
+		mArr += reduce(arr[each],arr[each],sum);
 	}
-	return myArr;
+	return mArr;
 }
 
 function every(arr,func){
-  var gather = 0;
-	for(var each in arr){
-		gather += reduce(arr,arr[each],func);
-	}
-	return gather === arr.length? true : false;
+  for(var each in arr){
+    if (reduce(arr[each],arr[each],func)%2) return false;
+  }
+	return true;
 }
 
 function any(arr,func){
-	var total = 0;
-	if(arr.length === 0) return false;
-	for (var each in arr){
-		total += reduce(arr,arr[each],func);
-	}
-	return total >= 1? true : false;
+  for(var each in arr){
+    if (reduce(arr[each],arr[each],func)%2===0) return true;
+  }
+	return false;
 }
