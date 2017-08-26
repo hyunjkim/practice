@@ -1,72 +1,41 @@
 function factorialIterative(num){
-	var total = 1;
-	while(num > 0){
-		total*=num;
+	var count = 1;
+	while(num){
+		count*=num;
 		num--;
 	}
-	return total;
+	return count;
 }
+
 function factorial(num){
-	return num === 0 ? 1: num * factorial(num-1);
-}	
+	return num === 0? 1 : num * factorial(num-1);
+}
 
 function fib(num){
-	return num < 2 ? 1 :fib(num-1)+fib(num-2);	
+	return num === 0 || num === 1 ? 1 : fib(num-1) + fib(num-2);
 }
 
-function type(input){
-	// console.log(input.constructor)
-	// var check = Function.prototype.toString.call(input.constructor);
-	// var hey = check.match(/function (.*)\(/)[1];
-	// switch(hey){
- 	// 	case "null" : return "Null";
-	// 	case "Boolean" : return "Boolean";
-	// 	case "Number" : return "Number";
-	// 	case "String" : return "String";
-	// 	case "Function" : return "Function";
-	// 	case "Array" : return "Array";
-	// 	case "Object" : return "Object";
-	// }
-
-	// return input.constructor.name;
-	return Object.prototype.toString.call(input).slice(8,-1);
+function type(val){
+	return Object.prototype.toString.call(val).slice(8,-1);
 }
 
-function stringify(input){
-  var arr = [];
-  var isObj = type(input);
 
-	if(isObj === "Array"){
-		for(var each of input) {
-			arr.push(stringify(each));
-		}
-		return `[${arr.join(",")}]`;
-	} else if (isObj === "Object") {
-		for(var key in input){
-		  var value = stringify(input[key]);
-		  arr.push(`"${key}": ${value}`);
-		}
-		return`{${arr}}`;
+function stringify(val){
+	var arr = [];
+	switch(type(val)){
+		case "Array":
+			for(var each of val){
+			 arr.push(stringify(each));
+			}
+			return `[${arr.join(",")}]`;
+		
+		case "Object":
+			for(var item in val){
+			  console.log(item)
+			  arr.push('"'+item+'": ' + stringify(val[item]));
+			}
+			return `{${arr.join(",")}}`;
+		case "String": return `"${val}"`;
+		default : return `${val}`;
 	}
-	return isObj === "String" ? `"${input}"`: `${input}`;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
